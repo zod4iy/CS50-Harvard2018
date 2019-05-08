@@ -14,10 +14,8 @@ int main(int argc, string argv[])
         printf("Usage: ./vigenere k\n");
         return 1;
     }
-
     string k = argv[1];
     int n1 = strlen(k);
-
     for (int i = 0; i < n1; i++)        // chek in the keyword should be only alphabetical characters
     {
         if (isalpha(k[i]))
@@ -30,7 +28,6 @@ int main(int argc, string argv[])
             return 1;
         }
     }
-
     string p = get_string("plaintext :");
     int n2 = strlen(p);
     int key[n2];
@@ -49,8 +46,6 @@ int main(int argc, string argv[])
         {
             key[i] = 0;
         }
-
-    //  printf("%c", key[i]);
     }
 
     int num_p[n2];
@@ -97,7 +92,6 @@ int alphaB(char p, int key)
     {
         k = (int)p % 65 + key % 97;
     }
-
     return k;
 }
 
@@ -121,6 +115,5 @@ int alphaS(char p, int key)
     {
         k = (int)p % 97 + key % 97;
     }
-
     return k;
 }

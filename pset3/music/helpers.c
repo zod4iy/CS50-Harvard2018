@@ -13,7 +13,6 @@ int duration(string fraction)
     int numenator = (int)fraction[0]%48;
     int denominator =(int)fraction[2]%48;
     int d;
-
     if (denominator == 8)
     {
         d = numenator;
@@ -24,7 +23,6 @@ int duration(string fraction)
     }
 return d;
 }
-
 // Calculates frequency (in Hz) of a note
 int frequency(string note)
 {
@@ -39,7 +37,6 @@ int frequency(string note)
             oct = (int)note[i]%48;
         }
     }
-
     k = 0.5*pow(2, oct);
     // oct1[] = {33, 35, 37, 39, 41, 44, 46, 49, 52, 55, 58, 62}; // start C1...
     if (n == 2)
@@ -69,7 +66,6 @@ int frequency(string note)
         break;
         }
     }
-
 if (n == 3)
     {
         switch(note[0]+note[1])
@@ -94,13 +90,9 @@ if (n == 3)
         case 'B' + 'b':
         f = roundf(58.27*k);
         break;
-
         }
-
     }
-
     return f;
-
 }
 
 // Determines whether a string represents a rest
@@ -112,6 +104,5 @@ bool is_rest(string s)
         if ((int)s[i] != 32)
         return false;
     }
-
     return true;
 }

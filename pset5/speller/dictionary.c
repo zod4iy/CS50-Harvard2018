@@ -16,7 +16,6 @@ typedef struct node
    node;
 
 // create a global variable
-
 node* htable[26];
 unsigned int num_words;
 
@@ -26,27 +25,21 @@ int hash_function(node* node)
     int x = (node->word[0])%97;
     return x;
 }
-
-
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-
-     char copy_word[46];
-
-     for (int i = 0, l = strlen(word); i < l; i++)
+    char copy_word[46];
+    for (int i = 0, l = strlen(word); i < l; i++)
+    {
+        if((int)word[i] >= 65 && (int)word[i] <= 90)
         {
-
-            if((int)word[i] >= 65 && (int)word[i] <= 90)
-            {
-                copy_word[i] = word[i] + 32;
-            }
-            else
-            {
-                copy_word[i] = word[i];
-            }
+            copy_word[i] = word[i] + 32;
         }
-
+        else
+        {
+            copy_word[i] = word[i];
+        }
+    }
     int last = strlen(word);
     copy_word[last] = '\0';
 
@@ -54,15 +47,12 @@ bool check(const char *word)
     node* cursor = htable[hash_v];
     while (cursor != NULL)
     {
-
         if (strcmp(copy_word, cursor->word) == 0)
         {
             return true;
-
         }
         cursor = cursor->next;
     }
-
 return false;
 }
 
@@ -74,10 +64,8 @@ bool load(const char *dictionary)
    {
        return false;
    }
-
    char c;
    num_words = 0;
-
    while (feof(inptr) == 0)
    {
        c = fgetc(inptr);
@@ -90,55 +78,41 @@ bool load(const char *dictionary)
    {
        htable[i] = NULL;
    }
-
    for (int i = 0; i < num_words; i++)
    {
-
-    node* n = malloc(sizeof(node));
-    if (n == NULL)
-      {
-        return false;
-      }
-
+       node* n = malloc(sizeof(node));
+       if (n == NULL)
+       {
+           return false;
+       }
        n->next = NULL;
 
-      char dicw[46];
-      fscanf(inptr, "%s", dicw);
-      strcpy(n->word, dicw);
+       char dicw[46];
+       fscanf(inptr, "%s", dicw);
+       strcpy(n->word, dicw);
+       int index = hash_function(n);
 
-      int index = hash_function(n);
-
-      for (int j = 0; j < 26; j++)
-      {
-
-         if (htable[j] == NULL && j == index)
-         {
-              htable[j] = n;
-
-         }
-         else if (htable[j] != NULL && j == index)
-         {
-             n->next = htable[j];
-             htable[j] = n;
-
-         }
-      }
-
-
+       for (int j = 0; j < 26; j++)
+       {
+           if (htable[j] == NULL && j == index)
+           {
+               htable[j] = n;
+           }
+           else if (htable[j] != NULL && j == index)
+           {
+               n->next = htable[j];
+               htable[j] = n;
+           }
+       }
    }
-
-    fclose(inptr);
-    return true;
-
+   fclose(inptr);
+   return true;
 }
-
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-  return num_words;
-
+   return num_words;
 }
-
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
@@ -153,7 +127,6 @@ bool unload(void)
             free(temp);
         }
     }
-
     if (cursor == NULL)
     {
         return true;

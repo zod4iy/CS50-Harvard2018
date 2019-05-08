@@ -37,27 +37,25 @@ int main(int argc, string argv[])
     for (int i = 0; i < n; i++)
     {
         plain_t[i] = (int) plaintext[i];
-
-       if (plaintext[i] < 'A' || plaintext[i] > 'z' || plaintext[i] == '[' || plaintext[i] == '\\' || plaintext[i] == ']'
+        if (plaintext[i] < 'A' || plaintext[i] > 'z' || plaintext[i] == '[' || plaintext[i] == '\\' || plaintext[i] == ']'
             || plaintext[i] == '^' || plaintext[i] == '_' || plaintext[i] == '\'')
-       {
-           ciphertext[i] = plaintext[i];
-       }
-       else if (isupper(plaintext[i]))
-       {
-           plain_t[i] = alphaB(plain_t[i], key);
-           ciphertext[i] = 'A' + plain_t[i];
-       }
-       else
-       {
-           plain_t[i] = alphaS(plain_t[i], key);
-           ciphertext[i] = 'a' + plain_t[i];
-       }
-
-    printf("%c", ciphertext[i]);
-   }
-   printf("\n");
-   return 0;
+        {
+            ciphertext[i] = plaintext[i];
+        }
+        else if (isupper(plaintext[i]))
+        {
+            plain_t[i] = alphaB(plain_t[i], key);
+            ciphertext[i] = 'A' + plain_t[i];
+        }
+        else
+        {
+            plain_t[i] = alphaS(plain_t[i], key);
+            ciphertext[i] = 'a' + plain_t[i];
+        }
+        printf("%c", ciphertext[i]);
+    }
+    printf("\n");
+    return 0;
 }
 
 int alphaB(int n, int k)
@@ -70,7 +68,6 @@ int alphaB(int n, int k)
     {
         n = n % 65 + k % 26;
     }
-
     return n;
 }
 
@@ -84,6 +81,5 @@ int alphaS(int n, int k)
     {
         n = n % 97 + k % 26;
     }
-
     return n;
 }

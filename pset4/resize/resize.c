@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Usage: resize n infile outfile\n");
         return 1;
     }
-
     // check 0<n<=100
     int n;
     n = atoi(argv[1]);
@@ -22,7 +21,6 @@ int main(int argc, char *argv[])
         fprintf(stderr, "n must be a positive int less than or equal to 100\n");
         return 5;
     }
-
     // remember filenames
     char *infile = argv[2];
     char *outfile = argv[3];
@@ -63,18 +61,16 @@ int main(int argc, char *argv[])
     }
     // determine padding for scanlines in input image
     int padding1 = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-
-     BITMAPFILEHEADER bf2;
-     bf2 = bf;
-     BITMAPINFOHEADER bi2;
-     bi2 = bi;
+    BITMAPFILEHEADER bf2;
+    bf2 = bf;
+    BITMAPINFOHEADER bi2;
+    bi2 = bi;
 
     // updating header info
     bi2.biWidth = bi.biWidth*n;
     bi2.biHeight = bi.biHeight*n;
-         // determine padding for scanlines in output image
-         int padding2 = (4 - (bi2.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-
+    // determine padding for scanlines in output image
+    int padding2 = (4 - (bi2.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
     bi2.biSizeImage = ((sizeof(RGBTRIPLE)*bi2.biWidth)+padding2)*abs(bi2.biHeight);
     bf2.bfSize = bi2.biSizeImage + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
 
@@ -93,17 +89,14 @@ int main(int argc, char *argv[])
         {
             // temporary storage
             RGBTRIPLE triple;
-
             // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
-
             // write RGB triple to outfile
             for(int m = 0; m < n; m++)
             {
-            fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
+                fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
             }
         }
-
         // add padding in output file
         for (int k = 0; k < padding2; k++)
         {
@@ -122,7 +115,6 @@ int main(int argc, char *argv[])
         count = 1;
         }
     }
-
     // close infile
     fclose(inptr);
 
